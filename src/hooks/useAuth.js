@@ -19,7 +19,11 @@ export function useAuth() {
   }, []);
 
   const signInWithGoogle = () => {
-    supabase.auth.signInWithOAuth({ provider: "google" });
+    // Return to whichever host started sign-in (localhost or the Vercel domain).
+    supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: { redirectTo: window.location.origin },
+    });
   };
 
   const signOut = () => supabase.auth.signOut();
